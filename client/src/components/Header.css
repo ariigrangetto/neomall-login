@@ -1,0 +1,17 @@
+.header-header{
+    border-bottom: 0.2rem solid rgba(83, 83, 83, 0.021);
+    padding: 0.7rem;
+    
+    a{
+      font-weight: 500;
+      color: #000000da;
+      text-decoration: inherit;
+      font-size: 1.3rem;
+    };
+}
+
+.header-header:hover{
+    a{
+        color: rgba(51, 95, 146, 0.966);
+    }
+}
