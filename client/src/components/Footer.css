@@ -1,10 +1,10 @@
-.footer-section {
-  background: #111;
-  color: #fff;
+footer {
+  color: #000000;
+  text-align: center;
+  margin: auto;
   padding: 20px 0;
   text-align: center;
   margin-top: auto;
-  border-top: 2px solid #333;
 
   small {
     color: var(--text-muted);

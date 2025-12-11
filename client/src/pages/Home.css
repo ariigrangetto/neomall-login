@@ -1,48 +1,72 @@
-.home-btn-section {
-  margin: auto;
-  display: flex;
+.home-main {
   justify-content: center;
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  text-align: center;
+  margin: auto;
 }
 
-.home-title {
-  font-size: clamp(2.5rem, 8vw, 7rem);
-  color: rgb(22, 22, 22);
-  cursor: default;
-  margin-bottom: 2rem;
-}
-
-.home-nav-btn {
-  margin: auto;
+.home-icon-title {
   display: flex;
   justify-content: center;
-  padding: 0.5rem;
-  width: 10rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.096);
-  box-shadow: 0.1rem 0.1rem rgba(128, 128, 128, 0.096);
-  cursor: pointer;
+  margin: auto;
+  height: 50px;
+  align-items: center;
 
-  a {
-    font-weight: 500;
-    color: #000;
-    text-decoration: inherit;
-    font-size: 1.3rem;
+  img {
+    height: 6rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+    color: black;
   }
 }
 
-.home-nav-btn:hover {
-  background-color: rgba(21, 55, 94, 0.171);
-  box-shadow: 0.4rem 0.3rem 0.4rem 0.1rem rgba(12, 33, 56, 0.027);
-  border: 1px solid rgba(21, 55, 94, 0);
-  transition: all ease-in 0.3s;
+.home-btn-section {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  padding: 2rem 2rem;
 }
 
-.home-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: calc(100vh - 130px);
-  align-items: center;
-  text-align: center;
-  padding: 1rem;
+.home-name-presentation {
+  width: 40rem;
+  h2 {
+    height: 130px;
+    margin-bottom: 0;
+
+    color: black;
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  p {
+    height: 20px;
+    align-items: center;
+    padding: 1rem;
+    justify-content: center;
+    margin: auto;
+    display: flex;
+    font-size: 1.5rem;
+  }
+}
+
+.home-btn-section {
+  button {
+    background-color: black;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.home-btn-section:hover {
+  button {
+    transition: 1s ease-in-out;
+    background-color: rgb(0, 17, 95);
+  }
 }
