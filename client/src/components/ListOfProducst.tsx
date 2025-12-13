@@ -12,22 +12,20 @@ export default function ListOfProducts() {
     handleUpdateInputSearch,
     filteredProducts,
     setFilters,
+    loading,
     currentPage,
   } = useUrl();
 
   return (
     <>
-      <header>
-        <Link to='cart' className='cart-icon'>
-          cart
-        </Link>
-      </header>
       <h1>List of products:</h1>
       <SearchProducts
         setFilter={setFilters}
         onChangeInputValue={handleUpdateInputSearch}
       />
-      {filteredProducts.length > 0 ? (
+      {loading ? (
+        <p>Loading filtered products</p>
+      ) : filteredProducts.length > 0 ? (
         <>
           <ul>
             {filteredProducts.map((product) => (
