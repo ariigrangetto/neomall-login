@@ -6,6 +6,8 @@ import Footer from "./components/Footer.tsx";
 import { lazy, Suspense } from "react";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
+import ProtectedPath from "./components/ProtectedPath.tsx";
+import Profile from "./pages/Profile.tsx";
 
 const Details = lazy(() => import("./pages/Details.tsx"));
 const NotFound = lazy(() => import("./pages/404.tsx"));
@@ -24,11 +26,13 @@ function App() {
 
           <Route path='/products' element={<Products />} />
           <Route path='/products/details/:id' element={<Details />} />
-          <Route path='/products/cart' element={<Cart />} />
+          <Route element={<ProtectedPath />}>
+            <Route path='/products/cart' element={<Cart />} />
+            <Route path='/profile' element={<Profile />} />
+          </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Suspense>
-      <Footer />
     </>
   );
 }
