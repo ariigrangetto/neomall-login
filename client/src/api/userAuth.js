@@ -1,16 +1,18 @@
 const API = "http://localhost:8080";
 
 export async function registerRequest(user) {
+  console.log(user);
   try {
     const response = await fetch(`${API}/register`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
       credentials: "include",
     });
     const data = await response.json();
+    console.log(data);
     return { status: response.status, data };
   } catch (error) {
     throw new Error("Error fetching data " + error.message);
@@ -22,7 +24,7 @@ export async function loginRequest(user) {
     const response = await fetch(`${API}/login`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
       credentials: "include",
