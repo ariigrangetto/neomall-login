@@ -1,10 +1,39 @@
 import { Link } from "react-router";
 import "./Header.css";
+import { useLocation } from "react-router";
+import useAuth from "../hooks/useAuth";
 
 export default function Header() {
-    return (
-        <header className="header-header">
-            <Link to="/">NeoMall</Link>
-        </header>
-    )
+  const path = useLocation();
+  const { isAuthenticated, logout } = useAuth();
+
+  return (
+    <header className='header-header'>
+      <div className='header-neomall'>
+        <nav>
+          {path.pathname === "/" ? (
+            ""
+          ) : (
+            <>
+              <div className='header-neomall-link'>
+                <img src='/icon.svg' />
+                <Link to='/'>NeoMall</Link>
+              </div>
+            </>
+          )}
+        </nav>
+      </div>
+      <div className='header-nav-section'>
+        {path.pathname === "/products" && !isAuthenticated ? (
+          <Link to='/login'>Login</Link>
+        ) : (
+          <>
+            <button onClick={logout}>Logout</button>
+            <Link to='/profile'>Profile</Link>
+            <Link to='/cart'>Cart</Link>
+          </>
+        )}
+      </div>
+    </header>
+  );
 }

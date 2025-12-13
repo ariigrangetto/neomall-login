@@ -1,23 +1,33 @@
 import { Link } from "react-router";
 import "./Home.css";
+import Footer from "../components/Footer.tsx";
 
 export default function Home() {
   return (
-    <header className='home-header'>
-      <title>NeoMall</title>
-      <div className='home-name-presentation'>
-        <h1 className='home-title'>Welcome to NeoMall</h1>
-      </div>
-      <div>
-        <button>
-          <Link to='login'>Login</Link>
-        </button>
-        <button className='home-nav-btn'>
-          <Link to='/products' className='home-link'>
-            Enter
-          </Link>
-        </button>
-      </div>
-    </header>
+    <>
+      <main className='home-main'>
+        <title>NeoMall</title>
+        <section className='home-section'>
+          <div className='home-presentation'>
+            <div className='home-icon-title'>
+              <img src='/icon.svg' alt='app icon' className='home-icon' />
+              <h3>NeoMall</h3>
+            </div>
+            <div className='home-name-presentation'>
+              <h2 className='home-title'>
+                Your shopping <br></br> experience, redefined.
+              </h2>
+              <p>The future of online shopping, simplified for you</p>
+            </div>
+          </div>
+          <div className='home-btn-section'>
+            <button>
+              <Link to='/products'>Explore products</Link>
+            </button>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }
