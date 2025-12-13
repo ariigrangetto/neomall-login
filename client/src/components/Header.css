@@ -1,10 +1,51 @@
 .header-header {
-  padding: 2rem 2rem;
+  padding: 1rem 2rem;
+  justify-content: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.103);
+  display: flex;
+  align-items: center;
 
   nav,
   a {
-    display: flex;
     text-decoration: none;
     color: black;
+  }
+}
+
+.header-neomall {
+  flex: 1;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+
+  img {
+    height: 25px;
+    text-align: center;
+  }
+  a {
+    align-items: center;
+  }
+}
+
+.header-neomall-link {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+}
+
+.header-nav-section {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.header-nav-section:hover {
+  a {
+    transition: 0.2s ease-in;
+    color: rgb(90, 90, 90);
   }
 }
