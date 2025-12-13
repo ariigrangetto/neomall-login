@@ -25,7 +25,7 @@ export async function register(req, res) {
   try {
     const findUser = await User.findOne({ email });
     if (findUser) {
-      return res.status(400).json(JSON.parse(result.error));
+      return res.status(400).json([{ message: "User already exists" }]);
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,7 +36,6 @@ export async function register(req, res) {
     });
 
     const userSave = await newUser.save();
-    console.log(userSave._id);
 
     const token = await createAccessToken({ id: userSave._id });
     res.cookie("token", token);
