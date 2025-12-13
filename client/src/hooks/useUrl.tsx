@@ -7,6 +7,7 @@ const RESULT_PER_PAGE = 10;
 export const useUrl = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState<string>("");
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(() => {
     const page = Number(searchParams.get("page"));
     return Number.isNaN(page) ? 1 : page;
@@ -22,30 +23,36 @@ export const useUrl = () => {
   //changing url in case of changed page, filter and search
   useEffect(() => {
     async function fetchData() {
-      const offset = (currentPage - 1) * RESULT_PER_PAGE;
-      let baseUrl = `https://dummyjson.com/products`;
+      try {
+        setLoading(true);
+        const offset = (currentPage - 1) * RESULT_PER_PAGE;
+        let baseUrl = `https://dummyjson.com/products`;
 
-      if (filters.category) {
-        baseUrl = `https://dummyjson.com/products/category/${filters.category}`;
+        if (filters.category) {
+          baseUrl = `https://dummyjson.com/products/category/${filters.category}`;
+        }
+
+        const params = new URLSearchParams();
+        params.append("limit", RESULT_PER_PAGE.toString());
+        params.append("skip", offset.toString());
+
+        if (inputValue) {
+          baseUrl = `https://dummyjson.com/products/search?${params.toString()}&q=${inputValue}`;
+        } else {
+          baseUrl = `${baseUrl}?${params.toString()}`;
+        }
+
+        const response = await fetch(`${baseUrl}`);
+        if (!response.ok) {
+          setLoading(false);
+          throw new Error("Error fetching data");
+        }
+        const data = await response.json();
+        setFilteredProducts(data.products);
+        setTotal(data.total);
+      } finally {
+        setLoading(false);
       }
-
-      const params = new URLSearchParams();
-      params.append("limit", RESULT_PER_PAGE.toString());
-      params.append("skip", offset.toString());
-
-      if (inputValue) {
-        baseUrl = `https://dummyjson.com/products/search?${params.toString()}&q=${inputValue}`;
-      } else {
-        baseUrl = `${baseUrl}?${params.toString()}`;
-      }
-
-      const response = await fetch(`${baseUrl}`);
-      if (!response.ok) {
-        throw new Error("Error fetching data");
-      }
-      const data = await response.json();
-      setFilteredProducts(data.products);
-      setTotal(data.total);
     }
     fetchData();
   }, [currentPage, filters.category, inputValue]);
@@ -77,6 +84,7 @@ export const useUrl = () => {
   return {
     handleChangePage,
     totalPages,
+    loading,
     handleUpdateInputSearch,
     filteredProducts,
     setFilters,
