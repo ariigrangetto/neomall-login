@@ -5,6 +5,14 @@ export interface Products {
   limit: number;
 }
 
+export interface User {
+  id: number | string;
+  createdAt?: string;
+  username: string;
+  email: string;
+  password: string;
+}
+
 export interface Product {
   id: number;
   title: string;
