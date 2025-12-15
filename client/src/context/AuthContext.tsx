@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const res = await loginRequest(data);
       if (res.status === 200) {
         setUser(res.data);
-        checkLogin();
         setIsAuthenticated(true);
         console.log(user);
       } else {
@@ -71,7 +70,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setErrorMessage([]);
         }, 1500);
       } else {
-        checkLogin();
         setIsAuthenticated(true);
         setUser(res.data);
       }
@@ -92,7 +90,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(true);
 
     const cookies = Cookies.get();
-    console.log(cookies.token);
     if (!cookies.token) {
       setIsAuthenticated(false);
       setLoading(false);
@@ -115,6 +112,37 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       console.error("Error validating token");
     }
   }
+
+  useEffect(() => {
+    setLoading(true);
+
+    async function checkValidateToken() {
+      const cookies = Cookies.get();
+      if (!cookies.token) {
+        setIsAuthenticated(false);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const res = await verifyTokenRequest(cookies.token);
+        if (!res) {
+          setIsAuthenticated(false);
+          setLoading(false);
+          return;
+        }
+
+        setIsAuthenticated(true);
+        setLoading(false);
+      } catch (error) {
+        setIsAuthenticated(false);
+        setLoading(false);
+        console.error("Error validating token");
+      }
+    }
+
+    checkValidateToken();
+  }, []);
 
   return (
     <AuthContext.Provider
