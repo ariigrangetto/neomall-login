@@ -4,7 +4,7 @@ import {
 } from "../schema/userSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../model/userModel.js";
+import User from "../model/mongoose/userModel.js";
 
 function createAccessToken(payload) {
   return new Promise((resolve, reject) => {
