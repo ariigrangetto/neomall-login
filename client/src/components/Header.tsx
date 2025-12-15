@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import "./Header.css";
 import { useLocation } from "react-router";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth.tsx";
 
 export default function Header() {
   const path = useLocation();
@@ -24,14 +24,18 @@ export default function Header() {
         </nav>
       </div>
       <div className='header-nav-section'>
-        {path.pathname === "/products" && !isAuthenticated ? (
-          <Link to='/login'>Login</Link>
+        {path.pathname === "/products" ? (
+          isAuthenticated === false ? (
+            <Link to='/login'>Login</Link>
+          ) : (
+            <>
+              <Link to='/profile'>Profile</Link>
+              <button onClick={logout}>Logout</button>
+              <Link to='/cart'>Cart</Link>
+            </>
+          )
         ) : (
-          <>
-            <button onClick={logout}>Logout</button>
-            <Link to='/profile'>Profile</Link>
-            <Link to='/cart'>Cart</Link>
-          </>
+          ""
         )}
       </div>
     </header>
