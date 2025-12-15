@@ -11,7 +11,7 @@ import Profile from "./pages/Profile.tsx";
 
 const Details = lazy(() => import("./pages/Details.tsx"));
 const NotFound = lazy(() => import("./pages/404.tsx"));
-const Cart = lazy(() => import("./components/Cart.tsx"));
+const Cart = lazy(() => import("./pages/Cart.tsx"));
 const Products = lazy(() => import("./pages/Products.tsx"));
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
           <Route path='/products' element={<Products />} />
           <Route path='/products/details/:id' element={<Details />} />
           <Route element={<ProtectedPath />}>
-            <Route path='/products/cart' element={<Cart />} />
+            <Route path='/cart' element={<Cart />} />
             <Route path='/profile' element={<Profile />} />
           </Route>
           <Route path='*' element={<NotFound />} />
