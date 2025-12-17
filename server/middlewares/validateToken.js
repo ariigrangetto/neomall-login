@@ -1,14 +1,16 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-export async function validateToken(req, res, next){
-    const { token } = req.cookies;
 
-    if(!token) return res.status(401).json({message: "No token, authorization denied"});
+export async function validateToken(req, res, next) {
+  const { token } = req.cookies;
 
-    jwt.verify(token, process.env.TOKEN_KEY, (err, decoded) => {
-        if(err) return res.status(401).json({message: "Invalid token"});
+  if (!token)
+    return res.status(401).json({ message: "No token, authorization denied" });
 
-        req.user = decoded;
-        next();
-    })
+  jwt.verify(token, process.env.TOKEN_KEY, (err, decoded) => {
+    if (err) return res.status(401).json({ message: "Invalid token" });
+
+    req.user = decoded;
+    next();
+  });
 }
