@@ -2,10 +2,9 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/authRoutes.js";
 import "dotenv/config";
 import userRoute from "./routes/userRoutes.js";
-import { connectDB } from "./server-with-mongoDB/mongoDB.js";
+import productsRoutes from "./routes/productRoutes.js";
 
 const app = express();
 app.use(cookieParser());
@@ -20,7 +19,7 @@ app.use(
 );
 
 app.use("/", userRoute);
-// app.use("/products", productsRoutes);
+app.use("/products", productsRoutes);
 // app.use("/cart", cartRoute);
 
 app.use((req, res) => {
