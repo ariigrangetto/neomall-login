@@ -1,6 +1,8 @@
+const API = import.meta.env.API;
+
 export async function getProduts() {
   try {
-    const response = await fetch("http://localhost:8080/products", {
+    const response = await fetch(`${API}/products`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -26,7 +28,25 @@ export async function getProductsFiltered(baseUrl) {
     });
 
     const data = await response.json();
-    return { status: response.status, data: data };
+    return { status: response.status, data };
+  } catch (error) {
+    throw new Error("Error fetching data");
+  }
+}
+
+export async function getProductById(id) {
+  try {
+    const response = await fetch(`${API}/products/:${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    return { status: response.status, data };
   } catch (error) {
     throw new Error("Error fetching data");
   }
