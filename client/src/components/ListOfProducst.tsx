@@ -25,12 +25,12 @@ export default function ListOfProducts() {
       />
       {loading ? (
         <p>Loading filtered products</p>
-      ) : filteredProducts.length > 0 ? (
+      ) : filteredProducts?.length > 0 ? (
         <>
           <ul>
             {filteredProducts.map((product) => (
               <li key={product.id}>
-                <img src={product.thumbnail} alt={product.title} />
+                <img src={product.image} alt={product.title} />
                 <h2>
                   {product.title} {product.category}
                 </h2>
