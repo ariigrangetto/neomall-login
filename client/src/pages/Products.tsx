@@ -3,15 +3,13 @@ import type { Product } from "../utils/types.d.ts";
 import { Helmet } from "react-helmet";
 import ListOfProducts from "../Components/ListOfProducst.tsx";
 import WithoutProducts from "../Components/WithoutProducts.tsx";
-import useAuth from "../hooks/useAuth.tsx";
-import { Link, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { getProduts } from "../api/product.js";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
   const path = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
-  const { logout, login, isAuthenticated } = useAuth();
 
   useEffect(() => {
     setLoading(true);
