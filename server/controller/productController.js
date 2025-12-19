@@ -51,20 +51,73 @@ export const getProductById = async (req, res) => {
   }
   try {
     const [response] = await connection.query(
-      `SELECT id, title, description, category, price, discountPercentage, rating, stock, brand, warrantyInformation, shippingInformation, availibilityStatus, image FROM products WHERE id = ?`,
-      [id]
-    );
+      `SELECT 
+        id, 
+        title, 
+        description, 
+        category, 
+        price, 
+        discountPercentage, 
+        rating, 
+        stock, 
+        brand, 
+        warrantyInformation, 
+        shippingInformation, 
+        availibilityStatus, 
+        image,
 
-    const [comment] = await connection.query(
-      `SELECT * FROM product_comment WHERE product_id = ?`,
+        JSON_ARRAYAGG(
+            JSON_OBJECT(
+                "id", comment_id,
+                "rating", ratingComment,
+                "comment", comment,
+                "date", date,
+                "reviewerName", reviewerName,
+                "reviewerEmail", reviewerEmail
+            )
+        ) AS comments
+        
+        FROM products 
+        LEFT JOIN comments ON id = product_id
+        WHERE id = ?
+        GROUP BY id
+        `,
       [id]
     );
 
     if (response.length === 0) {
-      return res.status(400).json([{ message: "Product not found" }]);
+      return res.status(404).json([{ message: "Product not found" }]);
     }
 
-    return res.status(201).json({ product: response, comment: comment });
+    return res.status(200).json(response[0]);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const filterProducts = async (req, res) => {
+  const { category, title } = req.query;
+
+  try {
+    let query = `
+      SELECT *
+      FROM products
+      WHERE 1 = 1
+    `;
+    const values = [];
+
+    if (category) {
+      query += ` AND category LIKE CONCAT('%', ?, '%')`;
+      values.push(category);
+    }
+
+    if (title) {
+      query += ` AND title LIKE CONCAT('%', ?, '%')`;
+      values.push(title);
+    }
+
+    const [response] = await connection.query(query, values);
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
