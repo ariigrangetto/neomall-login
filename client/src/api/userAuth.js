@@ -1,4 +1,4 @@
-const API = "http://localhost:8080";
+const API = import.meta.env.API;
 
 export async function registerRequest(user) {
   console.log(user);
