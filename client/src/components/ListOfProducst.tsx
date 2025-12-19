@@ -3,6 +3,7 @@ import useCartActions from "../Hooks/cartReducerActions.tsx";
 import { useUrl } from "../Hooks/useUrl.tsx";
 import SearchProducts from "./SearchProducts.tsx";
 import Pagination from "./Pagination.tsx";
+import Header from "./Header.tsx";
 
 export default function ListOfProducts() {
   const { addToCart, cart } = useCartActions();
@@ -10,7 +11,7 @@ export default function ListOfProducts() {
     handleChangePage,
     totalPages,
     handleUpdateInputSearch,
-    filteredProducts,
+    totalResult,
     setFilters,
     loading,
     currentPage,
@@ -18,6 +19,7 @@ export default function ListOfProducts() {
 
   return (
     <>
+      <Header />
       <h1>List of products:</h1>
       <SearchProducts
         setFilter={setFilters}
@@ -25,10 +27,10 @@ export default function ListOfProducts() {
       />
       {loading ? (
         <p>Loading filtered products</p>
-      ) : filteredProducts?.length > 0 ? (
+      ) : totalResult?.length > 0 ? (
         <>
           <ul>
-            {filteredProducts.map((product) => (
+            {totalResult.map((product) => (
               <li key={product.id}>
                 <img src={product.image} alt={product.title} />
                 <h2>
