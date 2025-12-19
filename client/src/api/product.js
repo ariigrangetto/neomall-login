@@ -14,3 +14,20 @@ export async function getProduts() {
     throw new Error("Error fetching data");
   }
 }
+
+export async function getProductsFiltered(baseUrl) {
+  try {
+    const response = await fetch(baseUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+    return { status: response.status, data: data };
+  } catch (error) {
+    throw new Error("Error fetching data");
+  }
+}
