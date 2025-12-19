@@ -9,20 +9,6 @@ export default function Header() {
 
   return (
     <header className='header-header'>
-      <div className='header-neomall'>
-        <nav>
-          {path.pathname === "/" ? (
-            ""
-          ) : (
-            <>
-              <div className='header-neomall-link'>
-                <img src='/icon.svg' />
-                <Link to='/'>NeoMall</Link>
-              </div>
-            </>
-          )}
-        </nav>
-      </div>
       <div className='header-nav-section'>
         {path.pathname === "/products" ? (
           isAuthenticated === false ? (
