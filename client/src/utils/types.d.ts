@@ -1,10 +1,3 @@
-export interface Products {
-  products: Product[];
-  total: number;
-  skip: number;
-  limit: number;
-}
-
 export interface User {
   id: number | string;
   createdAt?: string;
@@ -22,20 +15,20 @@ export interface Product {
   discountPercentage: number;
   rating: number;
   stock: number;
-  tags: string[];
   brand?: string;
-  sku: string;
-  weight: number;
-  dimensions: Dimensions;
   warrantyInformation: string;
   shippingInformation: string;
   availabilityStatus: AvailabilityStatus;
-  reviews: Review[];
-  returnPolicy: ReturnPolicy;
-  minimumOrderQuantity: number;
-  meta: Meta;
-  images: string[];
-  thumbnail: string;
+  comments: Comments[];
+  image: string;
+}
+
+export interface Comments {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
 }
 
 export enum AvailabilityStatus {
@@ -48,35 +41,6 @@ export enum Category {
   Fragrances = "fragrances",
   Furniture = "furniture",
   Groceries = "groceries",
-}
-
-export interface Dimensions {
-  width: number;
-  height: number;
-  depth: number;
-}
-
-export interface Meta {
-  createdAt: Date;
-  updatedAt: Date;
-  barcode: string;
-  qrCode: string;
-}
-
-export enum ReturnPolicy {
-  NoReturnPolicy = "No return policy",
-  The30DaysReturnPolicy = "30 days return policy",
-  The60DaysReturnPolicy = "60 days return policy",
-  The7DaysReturnPolicy = "7 days return policy",
-  The90DaysReturnPolicy = "90 days return policy",
-}
-
-export interface Review {
-  rating: number;
-  comment: string;
-  date: Date;
-  reviewerName: string;
-  reviewerEmail: string;
 }
 
 interface FiltersType {
