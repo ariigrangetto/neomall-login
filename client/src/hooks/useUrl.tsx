@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import type { FiltersType, Product } from "../utils/types.d.ts";
+import { getProductsFiltered } from "../api/product.js";
 
 const RESULT_PER_PAGE = 10;
 
@@ -8,10 +9,7 @@ export const useUrl = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(() => {
-    const page = Number(searchParams.get("page"));
-    return Number.isNaN(page) ? 1 : page;
-  });
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [filters, setFilters] = useState<FiltersType>({
     category: searchParams.get("category") || "",
@@ -19,7 +17,6 @@ export const useUrl = () => {
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
-  //changing url in case of changed page, filter and search
   useEffect(() => {
     async function fetchData() {
       try {
@@ -36,24 +33,19 @@ export const useUrl = () => {
           params.append("title", inputValue);
         }
 
-        const response = await fetch(`${baseUrl}`, {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          setLoading(false);
-          throw new Error("Error fetching data");
+        if (params.size !== 0) {
+          baseUrl += `?${params.toString()}`;
         }
-        const data = await response.json();
-        setFilteredProducts(data);
+
+        const response = await getProductsFiltered(baseUrl);
+
+        setFilteredProducts(response.data);
       } finally {
         setLoading(false);
       }
     }
     fetchData();
-  }, [currentPage, filters.category, inputValue]);
+  }, [filters.category, inputValue]);
 
   useEffect(() => {
     setSearchParams(() => {
@@ -63,17 +55,18 @@ export const useUrl = () => {
 
       if (inputValue) params.set("title", inputValue);
 
-      if (currentPage > 1) params.set("page", currentPage.toString());
-
       return params;
     });
-  }, [filters.category, currentPage, inputValue]);
+  }, [filters.category, inputValue]);
 
   const handleChangePage = (page: number) => {
     setCurrentPage(page);
   };
 
   const totalPages = Math.ceil(filteredProducts.length / RESULT_PER_PAGE);
+  const start = (currentPage - 1) * RESULT_PER_PAGE;
+  const end = start + RESULT_PER_PAGE;
+  const totalResult = filteredProducts.slice(start, end);
 
   const handleUpdateInputSearch = (text: string) => {
     setInputValue(text);
@@ -84,7 +77,7 @@ export const useUrl = () => {
     totalPages,
     loading,
     handleUpdateInputSearch,
-    filteredProducts,
+    totalResult,
     setFilters,
     currentPage,
   };
