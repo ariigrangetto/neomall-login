@@ -1,4 +1,4 @@
-const API = import.meta.env.API;
+const API = import.meta.env.VITE_API;
 
 export default async function getCart() {
   try {

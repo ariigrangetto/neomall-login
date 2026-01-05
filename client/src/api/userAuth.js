@@ -1,7 +1,6 @@
-const API = import.meta.env.API;
+const API = import.meta.env.VITE_API;
 
 export async function registerRequest(user) {
-  console.log(user);
   try {
     const response = await fetch(`${API}/register`, {
       method: "POST",

@@ -1,4 +1,4 @@
-const API = import.meta.env.API;
+const API = import.meta.env.VITE_API;
 
 export async function getProduts() {
   try {
@@ -36,7 +36,7 @@ export async function getProductsFiltered(baseUrl) {
 
 export async function getProductById(id) {
   try {
-    const response = await fetch(`${API}/products/:${id}`, {
+    const response = await fetch(`${API}/products/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -45,6 +45,7 @@ export async function getProductById(id) {
     });
 
     const data = await response.json();
+    console.log(data);
 
     return { status: response.status, data };
   } catch (error) {
