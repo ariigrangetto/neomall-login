@@ -38,7 +38,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (data: User) => {
     try {
       const res = await loginRequest(data);
-      if (res.status === 200) {
+      console.log(res);
+      if (res.status === 201) {
         setUser(res.data);
         setIsAuthenticated(true);
         console.log(user);
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           setErrorMessage([]);
         }, 1500);
       }
-    } catch (error) {
+    } catch (error: any) {
       throw new Error("Error login user: " + error.message);
     }
   };
@@ -80,38 +81,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = async () => {
     const res = await logoutRequest();
-    if (res?.status === 200) {
-      console.log("entro");
+    if (res?.status === 201) {
       setIsAuthenticated(false);
     }
   };
-
-  async function checkLogin() {
-    setLoading(true);
-
-    const cookies = Cookies.get();
-    if (!cookies.token) {
-      setIsAuthenticated(false);
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const res = await verifyTokenRequest(cookies.token);
-      if (!res) {
-        setIsAuthenticated(false);
-        setLoading(false);
-        return;
-      }
-
-      setIsAuthenticated(true);
-      setLoading(false);
-    } catch (error) {
-      setIsAuthenticated(false);
-      setLoading(false);
-      console.error("Error validating token");
-    }
-  }
 
   useEffect(() => {
     setLoading(true);
