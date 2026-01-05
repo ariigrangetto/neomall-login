@@ -1,12 +1,16 @@
 import { Link } from "react-router";
-import useCartActions from "../Hooks/cartReducerActions.tsx";
 import { useUrl } from "../Hooks/useUrl.tsx";
 import SearchProducts from "./SearchProducts.tsx";
 import Pagination from "./Pagination.tsx";
 import Header from "./Header.tsx";
+import { useEffect, useState } from "react";
+import { getCart } from "../api/cart.js";
+import useCartActions from "../hooks/cartActions.tsx";
+import useAuth from "../hooks/useAuth.tsx";
 
 export default function ListOfProducts() {
-  const { addToCart, cart } = useCartActions();
+  const { cart, addProduct } = useCartActions();
+  const { isAuthenticated } = useAuth();
   const {
     handleChangePage,
     totalPages,
@@ -38,11 +42,21 @@ export default function ListOfProducts() {
                 </h2>
                 <strong>{product.price}</strong>
                 <p>{product.description}</p>
-                <button onClick={() => addToCart(product)}>
-                  {cart.some((item) => item.id === product.id)
+
+                {isAuthenticated ? (
+                  <button onClick={() => addProduct(product.id)}>
+                    {cart.find((item) => item.id === product.id)
+                      ? "Agregado al carrito"
+                      : "Agregar al carrito"}
+                  </button>
+                ) : (
+                  <Link to='/login'>Agregar al carrito </Link>
+                )}
+                {/* <button onClick={() => addProduct(product.id)}>
+                  {cart.find((item) => item.id === product.id)
                     ? "Agregado al carrito"
                     : "Agregar al carrito"}
-                </button>
+                </button> */}
                 <Link to={`/products/details/${product.id}`}>Ver detalle</Link>
               </li>
             ))}
