@@ -23,6 +23,14 @@ export interface Product {
   image: string;
 }
 
+export interface Cart {
+  id: number;
+  user_id: number | string;
+  product_id: number;
+  quantity: number;
+  product: Product[];
+}
+
 export interface Comments {
   rating: number;
   comment: string;
