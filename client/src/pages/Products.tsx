@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Product } from "../utils/types.d.ts";
 import { Helmet } from "react-helmet";
-import ListOfProducts from "../Components/ListOfProducst.tsx";
-import WithoutProducts from "../Components/WithoutProducts.tsx";
+import ListOfProducts from "../components/ListOfProducts.tsx";
+import WithoutProducts from "../components/WithoutProducts.tsx";
 import { useLocation } from "react-router";
 import { getProduts } from "../api/product.js";
 
@@ -16,6 +16,7 @@ export default function Products() {
     async function FetchData() {
       try {
         const data = await getProduts();
+        console.log(data);
         setProducts(data.products);
       } catch (error) {
         throw new Error("Error fetching products");
