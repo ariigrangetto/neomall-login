@@ -1,9 +1,10 @@
 import { Link } from "react-router";
-import useCartActions from "../Hooks/cartReducerActions.tsx";
 import { Helmet } from "react-helmet";
+import useCartActions from "../hooks/cartActions.tsx";
 
 export default function Cart() {
-  const { cart, removeFromCart, clearCart } = useCartActions();
+  const { cart, addProduct, decrementQuantity, deleteProductFromCart } =
+    useCartActions();
 
   return (
     <>
@@ -18,20 +19,22 @@ export default function Cart() {
           {cart.map((product) => (
             <>
               <li key={product.id}>
-                <img src={product.thumbnail} alt={product.title} />
+                <img src={product.image} alt={product.title} />
                 <h2>
                   {product.title} {product.category}
                 </h2>
                 <strong>{product.price}</strong>
                 <p>{product.description}</p>
+                <p>{product.quantity}</p>
                 <Link to={`/products/details/${product.id}`}>Ver detalle</Link>
+                <button onClick={() => addProduct(product.id)}>+</button>
+                <button onClick={() => decrementQuantity(product.id)}>-</button>
+                <button onClick={() => deleteProductFromCart(product.id)}>
+                  Remove from cart
+                </button>
               </li>
-              <button onClick={() => removeFromCart(product.id)}>
-                Remove from cart
-              </button>
             </>
           ))}
-          <button onClick={clearCart}>Clear cart</button>
         </ul>
       ) : (
         <h1>No cuenta con productos en el carrito aún</h1>
