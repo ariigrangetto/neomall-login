@@ -12,8 +12,8 @@ const cartRoute = Router();
 
 cartRoute.get("/", validateToken, getAllProductsInCart);
 cartRoute.post("/", validateToken, addProductById);
-cartRoute.delete("/:id", validateToken, deleteFromCartById);
-cartRoute.patch("/increment/:id", validateToken, incrementQuantity);
-cartRoute.patch("/decrement/:id", validateToken, decrementQuantity);
+cartRoute.delete("/", validateToken, deleteFromCartById);
+cartRoute.patch("/increment", validateToken, incrementQuantity);
+cartRoute.patch("/decrement", validateToken, decrementQuantity);
 
 export default cartRoute;

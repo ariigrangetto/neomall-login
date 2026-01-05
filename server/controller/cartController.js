@@ -44,7 +44,7 @@ export const addProductById = async (req, res) => {
         `,
       [userId, id]
     );
-    return res.status(200).json([{ message: "Product added to cart" }]);
+    return res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -52,7 +52,8 @@ export const addProductById = async (req, res) => {
 
 export const incrementQuantity = async (req, res) => {
   const userId = req.user.userId;
-  const { id } = req.params;
+  const { id } = req.body;
+  console.log(id);
   try {
     const [result] = await connection.query(
       `UPDATE cart_items
@@ -63,7 +64,7 @@ export const incrementQuantity = async (req, res) => {
       [userId, id]
     );
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -71,7 +72,7 @@ export const incrementQuantity = async (req, res) => {
 
 export const decrementQuantity = async (req, res) => {
   const userId = req.user.userId;
-  const { id } = req.params;
+  const { id } = req.body;
   try {
     const [result] = await connection.query(
       `
