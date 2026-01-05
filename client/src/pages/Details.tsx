@@ -23,8 +23,7 @@ export default function Details() {
     async function getProduct() {
       try {
         const data = await getProductById(id);
-        console.log(data);
-        setProduct(data);
+        setProduct(data.data);
       } catch (e) {
         console.error("Error fetching", e);
       }
@@ -46,7 +45,7 @@ export default function Details() {
       <h1>Detalle del producto:</h1>
 
       <div>
-        <img src={product?.thumbnail} alt={product?.title} />
+        <img src={product?.image} alt={product?.title} />
         <h1>{product?.title}</h1>
         <h2>{product?.brand}</h2>
         <p>Description: {product?.description}</p>
@@ -56,7 +55,7 @@ export default function Details() {
         <p>{product?.stock}</p>
         <p>{product?.warrantyInformation}</p>
         <p>{product?.shippingInformation}</p>
-        <p>{product?.availabilityStatus}</p>
+        <p>{product?.availibilityStatus}</p>
       </div>
 
       <button onClick={() => addToCart(product)}>
@@ -66,14 +65,14 @@ export default function Details() {
       </button>
 
       <div className='reviews'>
-        {product?.reviews.map((reviews) => (
-          <div key={reviews.reviewerEmail}>
+        {product?.comments.map((comment, i) => (
+          <div key={i}>
             <h4>
-              {reviews.reviewerName} {reviews.rating}
+              {comment.reviewerName} {comment.rating}
             </h4>
-            <p>{reviews.reviewerEmail}</p>
-            <p>{new Date(reviews.date).toLocaleDateString()}</p>
-            <p>{reviews.comment}</p>
+            <p>{comment.reviewerEmail}</p>
+            <p>{new Date(comment.date).toLocaleDateString()}</p>
+            <p>{comment.comment}</p>
           </div>
         ))}
       </div>
