@@ -52,6 +52,7 @@ export async function incrementProductQuantity(id) {
 }
 
 export async function decrementProductQuantity(id) {
+  console.log(id);
   try {
     const response = await fetch(`${API}/cart/decrement`, {
       method: "PATCH",
