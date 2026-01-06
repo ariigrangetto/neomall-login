@@ -84,14 +84,14 @@ export const decrementQuantity = async (req, res) => {
       [userId, id]
     );
 
-    res.status(200).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
 export const deleteFromCartById = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
   const userId = req.user.userId;
 
   try {
