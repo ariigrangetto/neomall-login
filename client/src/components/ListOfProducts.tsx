@@ -45,18 +45,13 @@ export default function ListOfProducts() {
 
                 {isAuthenticated ? (
                   <button onClick={() => addProduct(product.id)}>
-                    {cart.find((item) => item.id === product.id)
+                    {cart.some((item) => item?.product_id === product.id)
                       ? "Agregado al carrito"
                       : "Agregar al carrito"}
                   </button>
                 ) : (
                   <Link to='/login'>Agregar al carrito </Link>
                 )}
-                {/* <button onClick={() => addProduct(product.id)}>
-                  {cart.find((item) => item.id === product.id)
-                    ? "Agregado al carrito"
-                    : "Agregar al carrito"}
-                </button> */}
                 <Link to={`/products/details/${product.id}`}>Ver detalle</Link>
               </li>
             ))}
