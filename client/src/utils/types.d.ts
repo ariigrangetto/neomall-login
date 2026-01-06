@@ -5,6 +5,13 @@ export interface User {
   email: string;
   password: string;
 }
+export interface Cart {
+  id: number;
+  user_id: number | string;
+  product_id: number;
+  quantity: number;
+  product: Product;
+}
 
 export interface Product {
   id: number;
@@ -21,14 +28,6 @@ export interface Product {
   availabilityStatus: AvailabilityStatus;
   comments: Comments[];
   image: string;
-}
-
-export interface Cart {
-  id: number;
-  user_id: number | string;
-  product_id: number;
-  quantity: number;
-  product: Product[];
 }
 
 export interface Comments {
