@@ -1,5 +1,4 @@
 import { use, useEffect, useState } from "react";
-import { CartContext } from "../context/CartReducerActions.tsx";
 import { Cart } from "../utils/types";
 import {
   addProductToCart,
@@ -9,41 +8,30 @@ import {
   incrementProductQuantity,
 } from "../api/cart.js";
 
-// export default function useCartActions() {
-//   const context = use(CartContext);
-
-//   if (!context) {
-//     throw new Error("useCartActions must be used within a provider");
-//   }
-
-//   return context;
-// }
-
 export default function useCartActions() {
   const [cart, setCart] = useState<Cart[]>([]);
 
-  useEffect(() => {
-    async function getProductsInCart() {
-      try {
-        const { data } = await getCart();
-        setCart(data);
-        console.log(data);
-      } catch (error: any) {
-        throw new Error("Error fetching products in cart " + error.message);
-      }
+  async function getProductsInCart() {
+    try {
+      const { data } = await getCart();
+      setCart(data);
+    } catch (error: any) {
+      throw new Error("Error fetching products in cart " + error.message);
     }
+  }
+
+  useEffect(() => {
     getProductsInCart();
   }, []);
 
   async function addProduct(id: number | string) {
-    const findedProductInCart = cart.find((product) => product.id === id);
-    console.log(findedProductInCart);
-    const { product_id } = findedProductInCart;
+    const findedProductInCart = cart.find((cart) => cart.product_id === id);
 
     if (findedProductInCart) {
       try {
-        const { data } = await incrementProductQuantity(product_id);
-        setCart(data);
+        const { product_id } = findedProductInCart;
+        await incrementProductQuantity(product_id);
+        getProductsInCart();
       } catch (error: any) {
         throw new Error("Error updating quantity " + error.message);
       }
@@ -58,12 +46,13 @@ export default function useCartActions() {
   }
 
   async function decrementQuantity(id: number | string) {
-    const findedProductInCart = cart.find((product) => product.id === id);
+    const findedProductInCart = cart.find((cart) => cart.product_id === id);
 
     if (findedProductInCart) {
       try {
-        const { data } = await decrementProductQuantity(id);
-        setCart(data);
+        const { product_id } = findedProductInCart;
+        await decrementProductQuantity(product_id);
+        getProductsInCart();
       } catch (error: any) {
         throw new Error("Error decrementing product quantity " + error.message);
       }
@@ -71,11 +60,13 @@ export default function useCartActions() {
   }
 
   async function deleteProductFromCart(id: number | string) {
-    const findedProductInCart = cart.find((product) => product.id === id);
+    const findedProductInCart = cart.find((cart) => cart.product_id === id);
 
     if (findedProductInCart) {
       try {
-        await deleteFromCart(id);
+        const { product_id } = findedProductInCart;
+        await deleteFromCart(product_id);
+        getProductsInCart();
       } catch (error: any) {
         throw new Error("Error deleting product from cart " + error.message);
       }
