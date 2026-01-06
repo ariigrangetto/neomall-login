@@ -6,6 +6,8 @@ export default function Cart() {
   const { cart, addProduct, decrementQuantity, deleteProductFromCart } =
     useCartActions();
 
+  console.log(cart);
+
   return (
     <>
       <Helmet>
@@ -16,20 +18,24 @@ export default function Cart() {
 
       {cart.length > 0 ? (
         <ul>
-          {cart.map((product) => (
+          {cart.map((cart) => (
             <>
-              <li key={product.id}>
-                <img src={product.image} alt={product.title} />
+              <li key={cart.product_id}>
+                <img src={cart.image} alt={cart.title} />
                 <h2>
-                  {product.title} {product.category}
+                  {cart.title} {cart.category}
                 </h2>
-                <strong>{product.price}</strong>
-                <p>{product.description}</p>
-                <p>{product.quantity}</p>
-                <Link to={`/products/details/${product.id}`}>Ver detalle</Link>
-                <button onClick={() => addProduct(product.id)}>+</button>
-                <button onClick={() => decrementQuantity(product.id)}>-</button>
-                <button onClick={() => deleteProductFromCart(product.id)}>
+                <strong>{cart.price}</strong>
+                <p>{cart.description}</p>
+                <p>{cart.quantity}</p>
+                <Link to={`/products/details/${cart.product_id}`}>
+                  Ver detalle
+                </Link>
+                <button onClick={() => addProduct(cart.product_id)}>+</button>
+                <button onClick={() => decrementQuantity(cart.product_id)}>
+                  -
+                </button>
+                <button onClick={() => deleteProductFromCart(cart.product_id)}>
                   Remove from cart
                 </button>
               </li>
