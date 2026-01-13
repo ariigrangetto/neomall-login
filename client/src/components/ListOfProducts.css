@@ -1,0 +1,57 @@
+.ul-products {
+  margin: auto;
+  justify-content: center;
+}
+
+.li-products {
+  margin: auto;
+  display: flex;
+  padding: 10px;
+  background-color: rgba(240, 240, 240, 0.534);
+  justify-content: space-between;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  width: 100%;
+}
+
+.li-products {
+  img {
+    width: 15rem;
+    cursor: pointer;
+  }
+  h2 {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  p {
+    justify-content: center;
+    margin: auto;
+    display: flex;
+    margin-top: 1rem;
+    text-align: justify;
+  }
+
+  .btn-add {
+    padding: 0.5rem;
+    width: 10rem;
+    margin-top: 1rem;
+    background-color: rgba(1, 1, 48, 0.877);
+    border: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: white;
+    cursor: pointer;
+  }
+
+  .btn-added {
+    padding: 0.5rem;
+    width: 10rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: white;
+    cursor: pointer;
+    background-color: green;
+  }
+}
