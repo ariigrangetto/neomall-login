@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
-import type { Product } from "../utils/type.d.ts";
-import useCartActions from "../Hooks/cartReducerActions.tsx";
+import type { Product } from "../utils/types.d.ts";
 import { Helmet } from "react-helmet";
 import { getProductById } from "../api/product.js";
+import useCartActions from "../hooks/cartActions.tsx";
 
 export default function Details() {
   let params = useParams();
-  const navigate = useNavigate();
-  const { cart, addToCart } = useCartActions();
+  const { cart, addProduct } = useCartActions();
 
   const [product, setProduct] = useState<Product | null>(null);
 
@@ -55,10 +54,10 @@ export default function Details() {
         <p>{product?.stock}</p>
         <p>{product?.warrantyInformation}</p>
         <p>{product?.shippingInformation}</p>
-        <p>{product?.availibilityStatus}</p>
+        <p>{product?.availabilityStatus}</p>
       </div>
 
-      <button onClick={() => addToCart(product)}>
+      <button onClick={() => addProduct(product?.id)}>
         {cart.some((item) => item.id === Number(params.id))
           ? "Agregado al carrito"
           : "Agregar al carrito"}

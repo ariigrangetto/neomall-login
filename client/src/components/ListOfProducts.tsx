@@ -3,8 +3,7 @@ import { useUrl } from "../Hooks/useUrl.tsx";
 import SearchProducts from "./SearchProducts.tsx";
 import Pagination from "./Pagination.tsx";
 import Header from "./Header.tsx";
-import { useEffect, useState } from "react";
-import { getCart } from "../api/cart.js";
+import "./ListOfProducts.css";
 import useCartActions from "../hooks/cartActions.tsx";
 import useAuth from "../hooks/useAuth.tsx";
 
@@ -21,6 +20,13 @@ export default function ListOfProducts() {
     currentPage,
   } = useUrl();
 
+  const findItem = (id: number | string) => {
+    const findedProduct = cart.some((item) => item?.product_id === id);
+    let text = findedProduct ? "Agregado al carrito" : "Agregar al carrito";
+    let className = findedProduct ? "btn-added" : "btn-add";
+    return { text, className };
+  };
+
   return (
     <>
       <Header />
@@ -33,25 +39,30 @@ export default function ListOfProducts() {
         <p>Loading filtered products</p>
       ) : totalResult?.length > 0 ? (
         <>
-          <ul>
+          <ul className='ul-products'>
             {totalResult.map((product) => (
-              <li key={product.id}>
+              <li key={product.id} className='li-products'>
                 <img src={product.image} alt={product.title} />
-                <h2>
-                  {product.title} {product.category}
-                </h2>
-                <strong>{product.price}</strong>
-                <p>{product.description}</p>
+                <div className='description'>
+                  <h2>
+                    {product.title} {product.category}
+                  </h2>
+                  <strong>${product.price}</strong>
+                  <p>{product.description}</p>
+                  {isAuthenticated ? (
+                    <button
+                      onClick={() => addProduct(product.id)}
+                      className={findItem(product.id).className}
+                    >
+                      {findItem(product.id).text}
+                    </button>
+                  ) : (
+                    <Link to='/login' className='btn-link'>
+                      Agregar al carrito
+                    </Link>
+                  )}
+                </div>
 
-                {isAuthenticated ? (
-                  <button onClick={() => addProduct(product.id)}>
-                    {cart.some((item) => item?.product_id === product.id)
-                      ? "Agregado al carrito"
-                      : "Agregar al carrito"}
-                  </button>
-                ) : (
-                  <Link to='/login'>Agregar al carrito </Link>
-                )}
                 <Link to={`/products/details/${product.id}`}>Ver detalle</Link>
               </li>
             ))}
