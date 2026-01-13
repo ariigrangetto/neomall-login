@@ -20,11 +20,9 @@ export default function Home() {
               <p>The future of online shopping, simplified for you</p>
             </div>
           </div>
-          <div className='home-btn-section'>
-            <button>
-              <Link to='/products'>Explore products</Link>
-            </button>
-          </div>
+          <Link to='/products' className='btn'>
+            Explore products
+          </Link>
         </section>
       </main>
       <Footer />
