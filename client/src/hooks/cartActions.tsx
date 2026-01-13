@@ -26,19 +26,18 @@ export default function useCartActions() {
 
   async function addProduct(id: number | string) {
     const findedProductInCart = cart.find((cart) => cart.product_id === id);
-
     if (findedProductInCart) {
       try {
         const { product_id } = findedProductInCart;
         await incrementProductQuantity(product_id);
-        getProductsInCart();
+        await getProductsInCart();
       } catch (error: any) {
         throw new Error("Error updating quantity " + error.message);
       }
     } else {
       try {
-        const { data } = await addProductToCart(id);
-        setCart(data);
+        addProductToCart(id);
+        await getProductsInCart();
       } catch (error: any) {
         throw new Error("Error adding product to cart " + error.message);
       }
