@@ -6,6 +6,7 @@ import Header from "./Header.tsx";
 import "./ListOfProducts.css";
 import useCartActions from "../hooks/cartActions.tsx";
 import useAuth from "../hooks/useAuth.tsx";
+import { MousePointerClick } from "lucide-react";
 
 export default function ListOfProducts() {
   const { cart, addProduct } = useCartActions();
@@ -30,7 +31,7 @@ export default function ListOfProducts() {
   return (
     <>
       <Header />
-      <h1>List of products:</h1>
+
       <SearchProducts
         setFilter={setFilters}
         onChangeInputValue={handleUpdateInputSearch}
@@ -44,9 +45,8 @@ export default function ListOfProducts() {
               <li key={product.id} className='li-products'>
                 <img src={product.image} alt={product.title} />
                 <div className='description'>
-                  <h2>
-                    {product.title} {product.category}
-                  </h2>
+                  <h2>{product.title}</h2>
+                  <h3>{product.category}</h3>
                   <strong>${product.price}</strong>
                   <p>{product.description}</p>
                   {isAuthenticated ? (
@@ -55,10 +55,16 @@ export default function ListOfProducts() {
                       className={findItem(product.id).className}
                     >
                       {findItem(product.id).text}
+                      <MousePointerClick />
                     </button>
                   ) : (
                     <Link to='/login' className='btn-link'>
-                      Agregar al carrito
+                      <div className='btn-link-text'>
+                        <p>Agregar al carrito</p>
+                        <i>
+                          <MousePointerClick size={22} />
+                        </i>
+                      </div>
                     </Link>
                   )}
                 </div>
@@ -74,7 +80,7 @@ export default function ListOfProducts() {
           />
         </>
       ) : (
-        <h1>Not search found, try again</h1>
+        <h1 className='search-not-found'>Not search found, try again!</h1>
       )}
     </>
   );

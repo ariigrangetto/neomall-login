@@ -1,5 +1,7 @@
 import { useId, useRef } from "react";
 import type { FiltersType } from "../utils/types.d.ts";
+import "./SearchProducts.css";
+import { Search } from "lucide-react";
 
 interface SearchProductsProps {
   setFilter: React.Dispatch<React.SetStateAction<FiltersType>>;
@@ -39,44 +41,51 @@ export default function SearchProducts({
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          placeholder='Essence Mascara Lash Princess beauty'
-          onChange={handleChangeInputSearch}
-          name={idText}
-        />
-        <button type='submit'>Buscar</button>
-      </form>
+      <div className='search-section'>
+        <div className='form-section'>
+          <form onSubmit={handleSubmit} className='filter-form'>
+            <input
+              type='text'
+              placeholder='Essence Mascara Lash Princess'
+              onChange={handleChangeInputSearch}
+              name={idText}
+              className='filter-input'
+            />
+            <button type='submit' className='filter-search-btn'>
+              <Search size={18} />
+            </button>
+          </form>
+        </div>
 
-      <div className='select-section'>
-        <select name={selectId} id={selectId} onChange={handleSelectCategory}>
-          <option value=''>Category</option>
-          <option value='beauty'>Beauty</option>
-          <option value='fragrances'>Fragrances</option>
-          <option value='furniture'>Furniture</option>
-          <option value='groceries'>Groceries</option>
-          <option value='womens-watches'>Womens watches</option>
-          <option value='womens-dresses'>Womens dresses</option>
-          <option value='womens-jewellery'>Womens jewellery</option>
-          <option value='womens-shoes'>Womens shoes</option>
-          <option value='womens-bags'>Womens bags</option>
-          <option value='vehicle'>Vehicle</option>
-          <option value='tops'>Tops</option>
-          <option value='tablets'>Tablets</option>
-          <option value='sunglasses'>Sunglasses</option>
-          <option value='sports-accessories'>Sports accessories</option>
-          <option value='smartphones'>Smartphones</option>
-          <option value='skin-care'>Skin care</option>
-          <option value='motorcycle'>Motorcycle</option>
-          <option value='mobile-accessories'>Mobile accessories</option>
-          <option value='mens-watches'>Mens watches</option>
-          <option value='mens-shoes'>Mens shoes</option>
-          <option value='mens-shirts'>Mens shirts</option>
-          <option value='laptops'>Laptops</option>
-          <option value='kitchen-accessories'>kitchen accessories</option>
-          <option value='home-decoration'>Home decoration</option>
-        </select>
+        <div className='select-section'>
+          <select name={selectId} id={selectId} onChange={handleSelectCategory}>
+            <option value=''>Category</option>
+            <option value='beauty'>Beauty</option>
+            <option value='fragrances'>Fragrances</option>
+            <option value='furniture'>Furniture</option>
+            <option value='groceries'>Groceries</option>
+            <option value='womens-watches'>Womens watches</option>
+            <option value='womens-dresses'>Womens dresses</option>
+            <option value='womens-jewellery'>Womens jewellery</option>
+            <option value='womens-shoes'>Womens shoes</option>
+            <option value='womens-bags'>Womens bags</option>
+            <option value='vehicle'>Vehicle</option>
+            <option value='tops'>Tops</option>
+            <option value='tablets'>Tablets</option>
+            <option value='sunglasses'>Sunglasses</option>
+            <option value='sports-accessories'>Sports accessories</option>
+            <option value='smartphones'>Smartphones</option>
+            <option value='skin-care'>Skin care</option>
+            <option value='motorcycle'>Motorcycle</option>
+            <option value='mobile-accessories'>Mobile accessories</option>
+            <option value='mens-watches'>Mens watches</option>
+            <option value='mens-shoes'>Mens shoes</option>
+            <option value='mens-shirts'>Mens shirts</option>
+            <option value='laptops'>Laptops</option>
+            <option value='kitchen-accessories'>kitchen accessories</option>
+            <option value='home-decoration'>Home decoration</option>
+          </select>
+        </div>
       </div>
     </>
   );

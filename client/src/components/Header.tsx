@@ -10,6 +10,7 @@ export default function Header() {
   return (
     <header className='header-header'>
       <div className='header-nav-section'>
+        <img src='/icon.svg' alt='icon' />
         {path.pathname === "/products" ? (
           isAuthenticated === false ? (
             <Link to='/login'>Login</Link>
