@@ -6,18 +6,14 @@ import "dotenv/config";
 import userRoute from "./routes/userRoutes.js";
 import productsRoutes from "./routes/productRoutes.js";
 import cartRoute from "./routes/cartRoutes.js";
+import { corsMiddlewares } from "./middleware/cors.js";
 
 const app = express();
 app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use(express.json());
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use(corsMiddlewares());
 
 app.use("/", userRoute);
 app.use("/products", productsRoutes);
@@ -30,6 +26,10 @@ app.use((req, res) => {
 const PORT = process.env.PORT;
 // connectDB();
 
-app.listen(PORT, () =>
-  console.log(`Servidor escuchando en el puerto: http://localhost:${PORT}`)
-);
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () =>
+    console.log(`Servidor escuchando en el puerto: http://localhost:${PORT}`),
+  );
+}
+
+export default app;
