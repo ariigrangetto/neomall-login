@@ -1,4 +1,4 @@
-import { connection } from "../model/mysql/connection.js";
+import { connection } from "../config/mysql/mysqlConnection.js";
 
 export const getAllProducts = async (req, res) => {
   try {
@@ -82,7 +82,7 @@ export const getProductById = async (req, res) => {
         WHERE id = ?
         GROUP BY id
         `,
-      [id]
+      [id],
     );
 
     if (response.length === 0) {
