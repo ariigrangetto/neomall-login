@@ -1,4 +1,4 @@
-import { connection } from "../model/mysql/connection.js";
+import { connection } from "../config/mysql/mysqlConnection.js";
 
 export const getAllProductsInCart = async (req, res) => {
   const userId = req.user.userId;
@@ -20,7 +20,7 @@ export const getAllProductsInCart = async (req, res) => {
         p.image FROM cart_items 
         JOIN products p ON product_id = p.id
         WHERE user_id = UUID_TO_BIN(?)`,
-      [userId]
+      [userId],
     );
 
     return res.status(200).json(result);
@@ -42,7 +42,7 @@ export const addProductById = async (req, res) => {
         ON DUPLICATE KEY UPDATE
         quantity = quantity + 1
         `,
-      [userId, id]
+      [userId, id],
     );
     return res.status(200).json(result);
   } catch (error) {
@@ -61,7 +61,7 @@ export const incrementQuantity = async (req, res) => {
             WHERE user_id = UUID_TO_BIN(?)
             AND product_id = ?
             `,
-      [userId, id]
+      [userId, id],
     );
 
     return res.status(200).json(result);
@@ -81,7 +81,7 @@ export const decrementQuantity = async (req, res) => {
             WHERE user_id = UUID_TO_BIN(?)
             AND product_id = ?
             `,
-      [userId, id]
+      [userId, id],
     );
 
     return res.status(200).json(result);
@@ -101,7 +101,7 @@ export const deleteFromCartById = async (req, res) => {
         WHERE user_id = UUID_TO_BIN(?) 
         AND product_id = ?
     `,
-      [userId, id]
+      [userId, id],
     );
 
     res.status(200).json([{ message: "Product deleted from cart" }]);
