@@ -79,11 +79,11 @@ export class ProductModel {
     const values = [];
 
     if (category) {
-      query += "AND category LIKE CONCAT('%', '?', '%')";
+      query += " AND LOWER(category) LIKE CONCAT('%', LOWER(?), '%')";
       values.push(category);
     }
     if (title) {
-      query += "AND title LIKE CONCAT('%', '?', '%')";
+      query += " AND LOWER(title) LIKE CONCAT('%', LOWER(?), '%')";
       values.push(title);
     }
 
