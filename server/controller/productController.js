@@ -1,4 +1,3 @@
-import { connection } from "../config/mysql/mysqlConnection.js";
 import { ProductModel } from "../model/productModel.js";
 
 export const getAllProducts = async (req, res) => {
