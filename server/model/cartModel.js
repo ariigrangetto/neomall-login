@@ -1,4 +1,6 @@
-import { connection } from "../config/mysql/mysqlConnection.js";
+import { createDBConnection } from "../config/mysql/mysqlConnection.js";
+
+const connection = await createDBConnection();
 
 export class CartModel {
   static async getProductsInCart(id) {

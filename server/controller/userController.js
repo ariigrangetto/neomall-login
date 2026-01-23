@@ -1,4 +1,3 @@
-import { connection } from "../config/mysql/mysqlConnection.js";
 import { UserModel } from "../model/useModel.js";
 import {
   validateLoginSchema,

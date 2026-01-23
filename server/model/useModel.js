@@ -1,5 +1,7 @@
-import { connection } from "../config/mysql/mysqlConnection.js";
+import { createDBConnection } from "../config/mysql/mysqlConnection.js";
 import bcrypt from "bcrypt";
+
+const connection = await createDBConnection();
 
 export class UserModel {
   static async register(email, username, password) {
