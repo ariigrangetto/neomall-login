@@ -1,18 +1,50 @@
+import "dotenv/config";
 import test from "node:test";
-import assert from "node:assert";
+//recomendado utilizar strict
+import { strict as assert } from "node:assert";
 import request from "supertest";
 import app from "../app.js";
 
-test("POST success user register, 201 status code", async () => {
+//REGISTER
+
+test("POST /register success user register, 201 status code", async () => {
   const res = await request(app)
     .post("/register") //method
     .send({
-      email: "ariigrangetto25@gmail.com",
-      username: "ariigrangetto25",
+      email: "ariigrangetto30@gmail.com",
+      username: "ariigrangetto30",
       password: "ariigrangetto5",
     }) //body
     .set("Content-Type", "application/json"); //headers
 
   assert.strictEqual(res.statusCode, 201); //validations
-  assert.ok(res.body.id);
+  assert(res.body.userId);
+});
+
+test("POST /register user alredy exists, 400 status code", async () => {
+  const res = await request(app)
+    .post("/register") //method
+    .send({
+      email: "ariigrangetto30@gmail.com",
+      username: "ariigrangetto30",
+      password: "ariigrangetto5",
+    }) //body
+    .set("Content-Type", "application/json");
+
+  assert.strictEqual(res.statusCode, 400);
+});
+
+//LOGIN
+
+test("POST /login user logged in succesfully, 201 status code", async () => {
+  const res = await request(app)
+    .post("/login")
+    .send({
+      email: "ariigrangetto30@gmail.com",
+      password: "ariigrangetto5",
+    })
+    .set("Content-Type", "application/json");
+
+  assert.strictEqual(res.statusCode, 201);
+  assert(res.body.userId);
 });
