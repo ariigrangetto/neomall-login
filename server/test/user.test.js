@@ -5,7 +5,7 @@ import { strict as assert } from "node:assert";
 import request from "supertest";
 import app from "../app.js";
 
-let token;
+export let token;
 
 //REGISTER
 
