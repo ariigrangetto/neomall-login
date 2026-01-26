@@ -43,22 +43,24 @@ export class UserModel {
   static async login(email, password) {
     let userId;
     let response;
+    let isMatchPassword = "";
     let [rows] = await connection.query(
       `SELECT BIN_TO_UUID(user_id) AS userId, username, email, password FROM users WHERE email = (?)`,
       [email],
     );
 
-    const isMatchPassword = await bcrypt.compare(password, rows[0].password);
+    if (rows.length > 0) {
+      isMatchPassword = await bcrypt.compare(password, rows[0].password);
 
-    if (rows.length > 0 && isMatchPassword) {
-      userId = rows[0].userId;
-      [response] = await connection.query(
-        `SELECT BIN_TO_UUID(user_id) AS userId, username, email 
-          FROM users WHERE user_id = UUID_TO_BIN(?)`,
-        [userId],
-      );
+      if (isMatchPassword) {
+        userId = rows[0].userId;
+        [response] = await connection.query(
+          `SELECT BIN_TO_UUID(user_id) AS userId, username, email 
+            FROM users WHERE user_id = UUID_TO_BIN(?)`,
+          [userId],
+        );
+      }
     }
-
     return { rows, isMatchPassword, userId, response };
   }
 
