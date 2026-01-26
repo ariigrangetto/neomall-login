@@ -53,7 +53,8 @@ export const login = async (req, res) => {
       email,
       password,
     );
-    if (rows.length < 0) {
+
+    if (rows.length === 0) {
       return res.status(400).json([{ message: "User not found" }]);
     }
 
