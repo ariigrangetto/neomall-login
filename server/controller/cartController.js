@@ -23,8 +23,8 @@ export const addProductById = async (req, res) => {
 };
 
 export const incrementQuantity = async (req, res) => {
-  const userId = req.user.userId;
   const { id } = req.body;
+  const userId = req.user.userId;
   try {
     const result = await CartModel.increment(userId, id);
     return res.status(200).json(result);
@@ -34,8 +34,8 @@ export const incrementQuantity = async (req, res) => {
 };
 
 export const decrementQuantity = async (req, res) => {
-  const userId = req.user.userId;
   const { id } = req.body;
+  const userId = req.user.userId;
   try {
     const result = await CartModel.decrement(userId, id);
     return res.status(200).json(result);
