@@ -1,9 +1,8 @@
 import { createDBConnection } from "../config/mysql/mysqlConnection.js";
 
-const connection = await createDBConnection();
-
 export class ProductModel {
   static async getProducts() {
+    const connection = await createDBConnection();
     const [result] = await connection.query(`SELECT 
         id, 
         title, 
@@ -39,6 +38,7 @@ export class ProductModel {
   }
 
   static async getProductById(id) {
+    const connection = await createDBConnection();
     const [response] = await connection.query(
       `SELECT 
         id, 
@@ -77,6 +77,7 @@ export class ProductModel {
   }
 
   static async filterProducts(category, title) {
+    const connection = await createDBConnection();
     let query = "SELECT * FROM products WHERE 1 = 1";
     const values = [];
 

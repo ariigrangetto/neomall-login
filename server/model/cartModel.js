@@ -1,9 +1,8 @@
 import { createDBConnection } from "../config/mysql/mysqlConnection.js";
 
-const connection = await createDBConnection();
-
 export class CartModel {
   static async getProductsInCart(id) {
+    const connection = await createDBConnection();
     const [result] = await connection.query(
       `SELECT product_id, quantity, 
         p.title, 
@@ -27,6 +26,7 @@ export class CartModel {
   }
 
   static async addProduct(id, userId) {
+    const connection = await createDBConnection();
     const result = await connection.query(
       `
         INSERT INTO cart_items (user_id, product_id, quantity)
@@ -40,6 +40,7 @@ export class CartModel {
   }
 
   static async increment(userId, id) {
+    const connection = await createDBConnection();
     const [result] = await connection.query(
       `UPDATE cart_items
                 SET quantity = quantity + 1
@@ -52,6 +53,7 @@ export class CartModel {
   }
 
   static async decrement(userId, id) {
+    const connection = await createDBConnection();
     const [result] = await connection.query(
       `
                 UPDATE cart_items
@@ -65,6 +67,7 @@ export class CartModel {
   }
 
   static async deleteFromCart(id, userId) {
+    const connection = await createDBConnection();
     const [result] = await connection.query(
       `
             DELETE FROM cart_items

@@ -1,13 +1,12 @@
 import { createDBConnection } from "../config/mysql/mysqlConnection.js";
 import bcrypt from "bcrypt";
 
-const connection = await createDBConnection();
-
 export class UserModel {
   static async register(email, username, password) {
     let userId;
     let userCreated;
     let response;
+    const connection = await createDBConnection();
     const [rows] = await connection.query(
       `SELECT user_id FROM users WHERE email = ?`,
       [email],
@@ -44,6 +43,7 @@ export class UserModel {
     let userId;
     let response;
     let isMatchPassword = "";
+    const connection = await createDBConnection();
     let [rows] = await connection.query(
       `SELECT BIN_TO_UUID(user_id) AS userId, username, email, password FROM users WHERE email = (?)`,
       [email],
@@ -65,6 +65,7 @@ export class UserModel {
   }
 
   static async profile(id) {
+    const connection = await createDBConnection();
     const [foundUser] = await connection.query(
       `
             SELECT BIN_TO_UUID(user_id) AS userId, username, email, created_at
@@ -78,6 +79,7 @@ export class UserModel {
   }
 
   static async verifyToken(userId) {
+    const connection = await createDBConnection();
     const [foundUser] = await connection.query(
       `
         SELECT BIN_TO_UUID(user_id) AS userId, username, email, created_at
