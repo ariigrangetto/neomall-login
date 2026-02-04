@@ -29,6 +29,22 @@ Como último paso, a modo de prueba y con el objetivo de seguir mejorando la cal
 * Testing (node:test)
 * Integración con MySQL
 
+## 🚀 Para correr el proyecto: 
+**Lado del servidor:** <br>
+* cd server
+* npm install
+* npm run dev
+
+**Lado del cliente:** <br>
+* cd client
+* npm install
+* npm run dev
+
+**Aclaraciones:** <br>
+1. Necesitaras DBnging para correr el servidor.
+2. Copiá `.env.example`, renombralo a `.env`
+3. Completá las variables según tu entorno.
+
 #
 
 I started this project using only React and JavaScript as a way to strengthen my recent knowledge of the framework.
@@ -60,3 +76,23 @@ As a final step, both as a learning exercise and to further improve the project�
 * User authentication (JWT)
 * Testing (node:test)
 * MySQL integration
+
+## 🚀 How to run the project
+
+**Server side:**  
+- cd server  
+- npm install  
+- npm run dev  
+
+**Client side:**  
+- cd client  
+- npm install  
+- npm run dev  
+
+**Notes:**  
+1. You will need **DBngin** to run the database server.  
+2. Copy `.env.example` and rename it to `.env`.  
+3. Fill in the environment variables according to your setup.
+
+
+
