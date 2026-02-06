@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router";
-import Header from "./components/Header.tsx";
 import Loading from "./pages/Loading.tsx";
 import Home from "./pages/Home.tsx";
 import { lazy, Suspense } from "react";
